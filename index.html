@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lua de mel · Florianópolis e Foz do Iguaçu · 31 ago a 7 set 2026</title>
+<meta name="description" content="Roteiro dia a dia da lua de mel de Luis e Iasmin: mapa interativo, reservas, custos e avisos, de 31 de agosto a 7 de setembro de 2026.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components/day-rail.css">
+<link rel="stylesheet" href="assets/css/components/map.css">
+<link rel="stylesheet" href="assets/css/components/schedule.css">
+<link rel="stylesheet" href="assets/css/components/data-display.css">
+<link rel="stylesheet" href="assets/css/components/notices.css">
+
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script type="module" src="assets/js/main.js"></script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero__backdrop" aria-hidden="true">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fortaleza%20Sao%20Jose-Florianopolis-Brasil.JPG?width=1100" alt="" onerror="this.hidden = true">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cataratas%20Iguacu%20Iguazu%20Falls.jpg?width=1100" alt="" onerror="this.hidden = true">
+  </div>
+  <div class="hero__inner">
+    <p class="hero__kicker">
+      <span>Luis e Iasmin</span><i class="hero__dot"></i>
+      <span>31 ago a 7 set 2026</span><i class="hero__dot"></i>
+      <span>voos e ônibus pagos</span>
+    </p>
+    <h1 class="hero__title">Uma ilha,<br>uma <em>catarata</em>,<br>oito dias.</h1>
+    <p class="hero__lede">Escolha um dia e o mapa mostra exatamente onde vocês vão estar, a que horas e quanto custa.</p>
+  </div>
+</header>
+
+<div class="facts">
+  <dl class="facts__list">
+    <div class="facts__item"><dt>Chegada em Floripa</dt><dd class="numeric">13:55</dd></div>
+    <div class="facts__item"><dt>Base na ilha</dt><dd>Canasvieiras</dd></div>
+    <div class="facts__item"><dt>Total estimado</dt><dd class="numeric">R$ 9.916</dd></div>
+    <div class="facts__item"><dt>Noites</dt><dd>7 <span class="facts__aside">(1 no ônibus)</span></dd></div>
+  </dl>
+</div>
+
+<nav class="tabs">
+  <div class="tabs__inner" role="tablist" aria-label="Seções">
+    <button class="tab" type="button" role="tab" id="t-mapa" aria-controls="p-mapa" aria-selected="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 4 6 2 5-2v14l-5 2-6-2-5 2V6Z"/><path d="M9 4v14M15 6v14"/></svg>
+      Roteiro e mapa
+    </button>
+    <button class="tab" type="button" role="tab" id="t-reservas" aria-controls="p-reservas" aria-selected="false" tabindex="-1">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Reservas
+    </button>
+    <button class="tab" type="button" role="tab" id="t-custos" aria-controls="p-custos" aria-selected="false" tabindex="-1">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Custos
+    </button>
+    <button class="tab" type="button" role="tab" id="t-avisos" aria-controls="p-avisos" aria-selected="false" tabindex="-1">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.2 1.8 17.5A2 2 0 0 0 3.5 20.5h17a2 2 0 0 0 1.7-3L13.7 3.2a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+      Avisos
+    </button>
+  </div>
+</nav>
+
+<main>
+<section class="panel" id="p-mapa" role="tabpanel" aria-labelledby="t-mapa">
+  <div class="wrap">
+    <div class="panel__head">
+      <p class="eyebrow">Roteiro e mapa</p>
+      <h2>Onde vocês estarão, dia a dia</h2>
+      <p>Escolha um dia. O mapa se ajusta sozinho e a agenda ao lado mostra horário, custo e o que fazer. Toque num horário para localizá-lo no mapa.</p>
+    </div>
+
+    <div class="day-rail" id="day-rail" role="tablist" aria-label="Dias da viagem"></div>
+
+    <div class="atlas">
+      <div class="map-card">
+        <p class="map-card__caption">
+          <span id="map-caption">Mapa</span>
+          <span id="map-subtitle"></span>
+        </p>
+        <div class="map-card__canvas" id="map-canvas" role="application" aria-label="Mapa dos pontos do roteiro"></div>
+        <p class="map-card__fallback" id="map-fallback" hidden>Não foi possível carregar o mapa. Verifique a conexão e recarregue a página.</p>
+        <ul class="map-legend">
+          <li><span class="map-legend__swatch map-legend__swatch--filled"></span>Dormida ou embarque</li>
+          <li><span class="map-legend__swatch"></span>Passeio do dia</li>
+          <li><span class="map-legend__swatch map-legend__swatch--route"></span>Ordem do percurso</li>
+          <li class="map-zoom" id="map-zoom"></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="schedule" id="schedule" role="tabpanel"></div>
+        <div class="day-nav">
+          <button type="button" id="prev-day">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            Dia anterior
+          </button>
+          <button type="button" id="next-day">
+            Próximo dia
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p-reservas" role="tabpanel" aria-labelledby="t-reservas" hidden>
+  <div class="wrap">
+    <div class="panel__head">
+      <p class="eyebrow">Reservas</p>
+      <h2>O que está pago e o que falta</h2>
+    </div>
+
+    <h3 class="subhead">Pago</h3>
+    <div class="card-grid">
+      <article class="card">
+        <p class="card__label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          Voos
+        </p>
+        <h4>BEL 04:25 → FLN 13:55</h4>
+        <p>Volta IGU 10:05 → BEL 16:25 no dia 7. Só bagagem de mão, então confiram o limite de líquidos de 100 ml.</p>
+        <span class="card__meta">ida 9h30 · volta 6h20</span>
+      </article>
+      <article class="card">
+        <p class="card__label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          Pousada Barbroch
+        </p>
+        <h4>Canasvieiras, R$ 396</h4>
+        <p>Suíte júnior com café da manhã, 3 diárias a R$ 132. Recepção 24h. Cancelamento grátis até 24 de agosto.</p>
+        <span class="card__meta">31 ago 14:00 · 3 set 11:00</span>
+      </article>
+      <article class="card">
+        <p class="card__label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          Expresso Nordeste
+        </p>
+        <h4>17:30 → 08:25, semileito</h4>
+        <p>Embarque direto, 14h55 de estrada. R$ 498,06 pelos dois com taxa. Bilhete eletrônico, pedido 20603342.</p>
+        <span class="card__meta">salvem o QR code offline</span>
+      </article>
+    </div>
+
+    <h3 class="subhead">Falta reservar</h3>
+    <div class="rows">
+      <div class="row">
+        <span><b>Hospedagem em Foz.</b> Check in sexta 4, check out segunda 7. Perto do Terminal Urbano, que é de onde sai a linha 120.</span>
+        <span class="row__note">3 noites</span><span class="row__price">~R$ 1.020</span>
+      </div>
+      <div class="row">
+        <span><b>Ingresso das Cataratas</b> para sábado 5, com data e horário agendados no site oficial.</span>
+        <span class="row__note">esgota</span><span class="row__price">R$ 242</span>
+      </div>
+      <div class="row">
+        <span><b>Macuco Safari</b>, o barco que entra embaixo das quedas. Reserva antecipada.</span>
+        <span class="row__note">2 horas</span><span class="row__price">~R$ 800</span>
+      </div>
+      <div class="row">
+        <span><b>Parque das Aves</b>, na tarde do dia 5.</span>
+        <span class="row__note">1h30</span><span class="row__price">R$ 260</span>
+      </div>
+      <div class="row">
+        <span><b>Massagem ou spa</b> e <b>jantar especial</b>, os dois no domingo 6.</span>
+        <span class="row__note">dia leve</span><span class="row__price">~R$ 550</span>
+      </div>
+    </div>
+
+    <div class="callout callout--warm">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#dda88f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.2 1.8 17.5A2 2 0 0 0 3.5 20.5h17a2 2 0 0 0 1.7-3L13.7 3.2a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <p><b>Prioridade absoluta:</b> a hospedagem em Foz cai no feriadão de 7 de setembro. Cada dia de espera custa dinheiro real. As outras reservas aguentam mais alguns dias, essa não.</p>
+    </div>
+
+    <h3 class="subhead">Como circular sem dirigir</h3>
+    <div class="rows">
+      <div class="row"><span>Aeroporto para Canasvieiras, <b>dia 31</b></span><span class="row__note">~50 min</span><span class="row__price">app R$ 100 a 130</span></div>
+      <div class="row"><span>Canasvieiras para o Santinho, de madrugada, <b>dia 1</b></span><span class="row__note">~25 min</span><span class="row__price">app R$ 40 a 55</span></div>
+      <div class="row"><span>Santinho, Fortaleza, Jurerê e Praia do Forte, <b>dia 1</b></span><span class="row__note">3 trechos</span><span class="row__price">app R$ 90 a 120</span></div>
+      <div class="row"><span>Canasvieiras para a Lagoa da Conceição, <b>dia 2</b></span><span class="row__note">~40 min</span><span class="row__price">app R$ 70 a 90</span></div>
+      <div class="row"><span>Canasvieiras, Santo Antônio e Rita Maria, <b>dia 3</b></span><span class="row__note">~55 min</span><span class="row__price">app R$ 85 a 115</span></div>
+      <div class="row"><span>Qualquer trecho no ônibus integrado da ilha</span><span class="row__note">1h a 2h30</span><span class="row__price">R$ 7 por pessoa</span></div>
+      <div class="row"><span>Em Foz, linha 120 para Cataratas, Macuco e Parque das Aves</span><span class="row__note">~40 min</span><span class="row__price">R$ 6 por pessoa</span></div>
+    </div>
+
+    <div class="callout">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9fd6c9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <p><b>A regra:</b> ônibus nos trechos curtos dentro do norte da ilha, aplicativo nos deslocamentos longos dos dias 2 e 3. Bagagem de mão facilita tudo isso. Em Foz, a linha 120 resolve os dois dias de passeio por R$ 6.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p-custos" role="tabpanel" aria-labelledby="t-custos" hidden>
+  <div class="wrap">
+    <div class="panel__head">
+      <p class="eyebrow">Custos</p>
+      <h2>R$ 9.800 no casal, dentro do teto</h2>
+      <p>Cenário sem a Argentina, com os três extras que vocês pediram e o barco brasileiro no lugar do argentino.</p>
+    </div>
+
+    <div class="budget">
+      <table class="budget-table">
+        <caption class="visually-hidden">Estimativa de custos do casal, item a item</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Passagens aéreas<small>pagas</small></td><td>R$ 3.560</td></tr>
+          <tr><td>Pousada Barbroch<small>paga, 3 diárias com café</small></td><td>R$ 396</td></tr>
+          <tr><td>Ônibus para Foz<small>pago, semileito</small></td><td>R$ 498</td></tr>
+          <tr><td>Hospedagem em Foz<small>3 noites, meio-termo, R$ 340 a diária</small></td><td>R$ 1.020</td></tr>
+          <tr><td>Alimentação<small>7 dias, já com 3 cafés inclusos</small></td><td>R$ 870</td></tr>
+          <tr><td>Transporte na ilha<small>aplicativo, já com o Santinho de madrugada</small></td><td>R$ 560</td></tr>
+          <tr><td>Transporte em Foz<small>linha 120, apps e aeroporto</small></td><td>R$ 250</td></tr>
+          <tr><td>Cataratas brasileiras<small>R$ 121 por pessoa</small></td><td>R$ 242</td></tr>
+          <tr><td>Macuco Safari<small>o barco embaixo das quedas</small></td><td>R$ 800</td></tr>
+          <tr><td>Parque das Aves</td><td>R$ 260</td></tr>
+          <tr><td>Marco das Três Fronteiras</td><td>R$ 110</td></tr>
+          <tr><td>Jantar especial e massagem<small>domingo 6, o dia leve</small></td><td>R$ 550</td></tr>
+          <tr><td>Reserva para imprevistos<small>10%, e vocês vão usar</small></td><td>R$ 800</td></tr>
+          <tr class="is-total"><td>Total</td><td>R$ 9.916</td></tr>
+        </tbody>
+      </table>
+
+      <div>
+        <div class="money">
+          <p class="money__label">Cenário recomendado</p>
+          <p class="money__total numeric">R$ 9.916</p>
+          <p class="money__caption">R$ 4.958 por pessoa</p>
+          <div class="split" aria-hidden="true">
+            <i class="split__segment" style="flex: 36; background: #17605c"></i>
+            <i class="split__segment" style="flex: 14; background: #3e8c7f"></i>
+            <i class="split__segment" style="flex: 9; background: #c9b896"></i>
+            <i class="split__segment" style="flex: 12; background: #7a8d88"></i>
+            <i class="split__segment" style="flex: 15; background: #9c3d22"></i>
+            <i class="split__segment" style="flex: 6; background: #c08a6e"></i>
+            <i class="split__segment" style="flex: 8; background: #d8deda"></i>
+          </div>
+          <ul class="split-legend">
+            <li><i class="split-legend__swatch" style="background: #17605c"></i>Aéreo 36%</li>
+            <li><i class="split-legend__swatch" style="background: #3e8c7f"></i>Hospedagem 14%</li>
+            <li><i class="split-legend__swatch" style="background: #c9b896"></i>Comida 9%</li>
+            <li><i class="split-legend__swatch" style="background: #7a8d88"></i>Transporte 12%</li>
+            <li><i class="split-legend__swatch" style="background: #9c3d22"></i>Passeios 15%</li>
+            <li><i class="split-legend__swatch" style="background: #c08a6e"></i>Extras 6%</li>
+            <li><i class="split-legend__swatch" style="background: #d8deda"></i>Reserva 8%</li>
+          </ul>
+        </div>
+
+        <div class="money money--dark">
+          <p class="money__label">Se quiserem apertar</p>
+          <p class="money__total numeric">R$ 8.500</p>
+          <p class="money__caption">cortando barco e extras</p>
+          <ul class="money__list">
+            <li><span>Sem o Macuco Safari</span><span>&minus; R$ 800</span></li>
+            <li><span>Sem massagem</span><span>&minus; R$ 300</span></li>
+            <li><span>Sem o Parque das Aves</span><span>&minus; R$ 260</span></li>
+            <li><span>Se a Argentina entrar</span><span>+ R$ 1.094</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subhead">Ingressos e onde comprar</h3>
+    <div class="tiles">
+      <article class="tile">
+        <span class="tile__name">Cataratas, lado brasileiro</span>
+        <span class="tile__price numeric">R$ 121</span>
+        <span class="tile__meta">por pessoa · agendem data e hora</span>
+        <a class="tile__link" href="https://cataratasdoiguacu.com.br" target="_blank" rel="noopener">SITE OFICIAL →</a>
+      </article>
+      <article class="tile">
+        <span class="tile__name">Macuco Safari</span>
+        <span class="tile__price numeric">~R$ 400</span>
+        <span class="tile__meta">por pessoa · 2h · dentro do parque</span>
+        <a class="tile__link" href="https://www.macucosafari.com.br" target="_blank" rel="noopener">MACUCO SAFARI →</a>
+      </article>
+      <article class="tile">
+        <span class="tile__name">Parque das Aves</span>
+        <span class="tile__price numeric">~R$ 130</span>
+        <span class="tile__meta">por pessoa · 1h30 · em frente ao parque</span>
+        <a class="tile__link" href="https://ingressos.parquedasaves.com.br/" target="_blank" rel="noopener">INGRESSOS →</a>
+      </article>
+      <article class="tile">
+        <span class="tile__name">Marco das Três Fronteiras</span>
+        <span class="tile__price numeric">~R$ 55</span>
+        <span class="tile__meta">por pessoa · melhor no fim da tarde</span>
+        <a class="tile__link" href="https://www.google.com/maps/search/?api=1&amp;query=Marco+das+Tr%C3%AAs+Fronteiras+Foz+do+Igua%C3%A7u" target="_blank" rel="noopener">VER NO MAPA →</a>
+      </article>
+      <article class="tile">
+        <span class="tile__name">Fortaleza de São José</span>
+        <span class="tile__price numeric">~R$ 15</span>
+        <span class="tile__meta">por pessoa · norte da ilha</span>
+        <a class="tile__link" href="https://www.google.com/maps/search/?api=1&amp;query=Fortaleza+de+S%C3%A3o+Jos%C3%A9+da+Ponta+Grossa" target="_blank" rel="noopener">VER NO MAPA →</a>
+      </article>
+      <article class="tile">
+        <span class="tile__name">Barco da Costa da Lagoa</span>
+        <span class="tile__price numeric">~R$ 30</span>
+        <span class="tile__meta">por trecho · Av. das Rendeiras</span>
+        <a class="tile__link" href="https://www.google.com/maps/search/?api=1&amp;query=Costa+da+Lagoa+Florian%C3%B3polis" target="_blank" rel="noopener">VER NO MAPA →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p-avisos" role="tabpanel" aria-labelledby="t-avisos" hidden>
+  <div class="wrap">
+    <div class="panel__head">
+      <p class="eyebrow is-warm">Avisos</p>
+      <h2>O que pode dar errado, e o que fazer</h2>
+    </div>
+
+    <div class="notice-grid">
+      <article class="notice notice--urgent">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9c3d22" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h3M15 12h3M6 16h12"/></svg>
+        <div>
+          <h4>Documento: a Argentina saiu do plano</h4>
+          <p>Vocês não têm RG novo nem passaporte, e faltam poucas semanas. O passaporte custa R$ 257 por pessoa e a fila de agendamento costuma demorar mais que a emissão. Sem cartão internacional, ainda seria preciso trocar reais por pesos em espécie. Por isso o roteiro faz o lado brasileiro completo, com o Macuco Safari no lugar do Gran Aventura. Se a PF surpreender com vaga antes de 20 de agosto, dá para reverter.</p>
+        </div>
+      </article>
+
+      <article class="notice notice--urgent">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9c3d22" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+        <div>
+          <h4>7 de setembro cai numa segunda</h4>
+          <p>O feriadão de 5 a 7 bate exatamente no tempo de vocês em Foz. Hotéis mais caros, Cataratas lotadas, filas. Em compensação, Florianópolis vocês pegam em dias de semana e baixa temporada, vazia e barata.</p>
+        </div>
+      </article>
+
+      <article class="notice">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17605c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/><path d="M12 8v4"/></svg>
+        <div>
+          <h4>Vocês casam poucos dias antes</h4>
+          <p>O voo sai às 04:25 e vocês saem de casa às 02:30, depois da semana do casamento. Os dias 31 e 1 estão desenhados leves de propósito. O domingo 6 também virou dia de descanso, com spa e jantar. Não tentem antecipar passeio para esses dias.</p>
+        </div>
+      </article>
+
+      <article class="notice">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17605c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4v10.5a4 4 0 1 1-4 0V4a2 2 0 1 1 4 0Z"/><path d="M14 8h3"/></svg>
+        <div>
+          <h4>Setembro em Floripa é frio</h4>
+          <p>Entre 13 e 22 graus, mar a 18, vento e chance de chuva, com o sol se pondo por volta das 18h. Levem casaco e capa de chuva mesmo com bagagem de mão. O roteiro não depende de banho de mar.</p>
+        </div>
+      </article>
+
+      <article class="notice">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17605c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <div>
+          <h4>Canasvieiras fora de temporada</h4>
+          <p>É um balneário de verão movido a turismo argentino. Em setembro boa parte do comércio fecha. Para dormir e para o dia 1 no norte, ótimo. Para jantar e vida noturna, contem com a Lagoa da Conceição no dia 2.</p>
+        </div>
+      </article>
+
+      <article class="notice">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17605c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        <div>
+          <h4>Pousada: prazo de 24 de agosto</h4>
+          <p>Depois disso a taxa de cancelamento é R$ 198, mesmo sem cartão cadastrado. A nota 9.1 é da pousada inteira, mas a Suíte Júnior tem 8.3 com 35 avaliações. Vale ler os comentários dessa suíte antes do prazo.</p>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="subhead">Checklist</h3>
+    <div class="checklist">
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Reservar hospedagem em Foz, entrada 4 e saída 7 de setembro</span><span class="checklist__tag">urgente</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Pedir early check in por escrito, chegada às 08:25</span><span class="checklist__tag">urgente</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Comprar ingresso das Cataratas com data e horário para o dia 5</span><span class="checklist__tag">urgente</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Reservar o Macuco Safari para a manhã do dia 5</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Comprar ingresso do Parque das Aves</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Checar vaga de agendamento na Polícia Federal antes de 20 de agosto</span><span class="checklist__tag">decide a Argentina</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Ler as avaliações da Suíte Júnior</span><span class="checklist__tag">até 24 ago</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Reservar spa e jantar especial para o domingo 6</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Salvar o bilhete eletrônico do ônibus offline no celular</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Instalar app de transporte e testar se atende Canasvieiras</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Separar casaco, capa de chuva e proteção para o celular</span></label>
+      <label class="checklist__item"><input class="checklist__box" type="checkbox"><span class="checklist__text">Conferir limite de 100 ml de líquidos na bagagem de mão</span></label>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><b>Lua de mel · 31 ago a 7 set 2026</b><br>
+      Voos, pousada em Canasvieiras e ônibus já pagos. Ingressos, transporte local e hospedagem em Foz são estimativas de 2026. Confirmem antes de fechar.</p>
+    <p><b>Mapas e fotos</b><br>
+      Mapa base do OpenStreetMap via CARTO, com coordenadas reais. Fotos do Wikimedia Commons, sob licenças Creative Commons.</p>
+  </div>
+</footer>
+
+</body>
+</html>

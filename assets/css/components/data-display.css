@@ -1,0 +1,348 @@
+/** Cards, definition rows, tables, budget panels and ticket tiles. */
+
+/* ---------- Card grid ---------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--color-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+@media (max-width: 880px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  padding: 22px;
+  background: var(--color-card);
+}
+
+.card__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-sea);
+}
+
+.card h4 {
+  margin-bottom: 7px;
+  font-size: 16.5px;
+  font-weight: 600;
+}
+
+.card p {
+  font-size: 13.8px;
+  color: var(--color-ink-soft);
+}
+
+.card__meta {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-ink-soft);
+}
+
+/* ---------- Row list ---------- */
+
+.rows {
+  display: grid;
+  gap: 2px;
+  background: var(--color-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--color-card);
+  font-size: 14.3px;
+}
+
+.row__note,
+.row__price {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.row__note {
+  min-width: 78px;
+  text-align: right;
+  color: var(--color-ink-soft);
+}
+
+.row__price {
+  min-width: 104px;
+  text-align: right;
+  font-weight: 500;
+  color: var(--color-clay);
+}
+
+@media (max-width: 700px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .row__note,
+  .row__price {
+    text-align: left;
+  }
+}
+
+/* ---------- Budget ---------- */
+
+.budget {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .budget {
+    grid-template-columns: 1fr;
+  }
+}
+
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.budget-table th,
+.budget-table td {
+  padding: 12px 17px;
+  border-bottom: 1px solid var(--color-line-faint);
+  font-size: 14.2px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.budget-table th {
+  background: var(--color-muted-surface);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.budget-table th:last-child,
+.budget-table td:last-child {
+  font-family: var(--font-mono);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.budget-table small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.3px;
+  color: var(--color-ink-soft);
+}
+
+.budget-table tr.is-total td {
+  background: var(--color-muted-surface);
+  border-bottom: 0;
+  font-weight: 700;
+}
+
+.budget-table tr.is-total td:last-child {
+  font-size: 15.5px;
+  color: var(--color-sea);
+}
+
+.money {
+  margin-bottom: 16px;
+  padding: 24px;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.money--dark {
+  background: var(--color-sea-dark);
+  color: #c6d6d1;
+}
+
+.money__label {
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.money--dark .money__label {
+  color: var(--color-sea-on-dark);
+}
+
+.money__total {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.money--dark .money__total {
+  color: #fff;
+}
+
+.money__caption {
+  margin-top: 5px;
+  font-size: 13px;
+  color: var(--color-ink-soft);
+}
+
+.money--dark .money__caption {
+  color: var(--color-sea-on-dark);
+}
+
+.money__list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  font-size: 13.5px;
+}
+
+.money__list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 0;
+  border-top: 1px solid var(--color-line-faint);
+}
+
+.money--dark .money__list li {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.money__list li span:last-child {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+/* Share-of-spend bar */
+
+.split {
+  display: flex;
+  height: 7px;
+  margin-top: 18px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.split__segment {
+  display: block;
+}
+
+.split-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  list-style: none;
+  margin: 11px 0 0;
+  padding: 0;
+  font-size: 12px;
+  color: var(--color-ink-soft);
+}
+
+.split-legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.split-legend__swatch {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+/* ---------- Ticket tiles ---------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--color-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+@media (max-width: 880px) {
+  .tiles {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+  background: var(--color-card);
+}
+
+.tile__name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tile__price {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.tile__meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--color-ink-soft);
+}
+
+.tile__link {
+  margin-top: auto;
+  padding-top: 11px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--color-sea);
+  text-decoration: none;
+}
+
+.tile__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

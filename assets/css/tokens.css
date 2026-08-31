@@ -1,0 +1,61 @@
+/**
+ * Design tokens.
+ *
+ * Two accents carry the whole page: `sea` for Florianópolis and `clay` for
+ * Foz do Iguaçu. Components switch between them through the `--accent-*`
+ * aliases, which the `.is-warm` modifier remaps.
+ */
+
+:root {
+  /* Surfaces */
+  --color-paper: #edf0ee;
+  --color-card: #fff;
+  --color-muted-surface: #f6f8f7;
+
+  /* Text */
+  --color-ink: #0f1d1b;
+  --color-ink-soft: #4a5c58;
+
+  /* Accent: sea (Florianópolis) */
+  --color-sea: #17605c;
+  --color-sea-dark: #0a2e2c;
+  --color-sea-light: #e4f0ec;
+  --color-sea-on-dark: #8fc9be;
+
+  /* Accent: clay (Foz do Iguaçu) */
+  --color-clay: #9c3d22;
+  --color-clay-dark: #43180e;
+  --color-clay-light: #f8ede8;
+  --color-clay-on-dark: #dda88f;
+
+  --color-sand: #c9b896;
+
+  /* Active accent, remapped by `.is-warm` */
+  --accent: var(--color-sea);
+  --accent-dark: var(--color-sea-dark);
+  --accent-light: var(--color-sea-light);
+  --accent-on-dark: var(--color-sea-on-dark);
+
+  /* Lines and elevation */
+  --color-line: rgba(15, 29, 27, 0.12);
+  --color-line-faint: rgba(15, 29, 27, 0.06);
+  --shadow-card: 0 1px 2px rgba(15, 29, 27, 0.05), 0 12px 30px -18px rgba(15, 29, 27, 0.4);
+
+  /* Type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Archivo", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Metrics */
+  --measure: 1180px;
+  --gutter: 22px;
+  --radius: 4px;
+  --radius-sm: 3px;
+}
+
+.is-warm {
+  --accent: var(--color-clay);
+  --accent-dark: var(--color-clay-dark);
+  --accent-light: var(--color-clay-light);
+  --accent-on-dark: var(--color-clay-on-dark);
+}
