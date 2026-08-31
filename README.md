@@ -77,13 +77,9 @@ módulo de interface.
 
 Todo push para o branch padrão dispara o workflow
 `.github/workflows/deploy.yml`, que publica a pasta inteira no GitHub Pages.
-Para o site ficar no ar são necessários dois ajustes, uma única vez, em
-*Settings*:
-
-1. **Settings → General → Danger Zone → Change visibility**: deixar o
-   repositório público (no plano gratuito, Pages só serve repositório público).
-2. **Settings → Pages → Build and deployment → Source**: escolher
-   **GitHub Actions**.
+O próprio workflow liga o Pages na primeira execução, via `enablement: true`.
+O repositório precisa ser público: no plano gratuito, Pages não serve
+repositório privado.
 
 ## Avisos sobre os dados
 
