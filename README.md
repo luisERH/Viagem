@@ -77,9 +77,12 @@ módulo de interface.
 
 Todo push para o branch padrão dispara o workflow
 `.github/workflows/deploy.yml`, que publica a pasta inteira no GitHub Pages.
-O próprio workflow liga o Pages na primeira execução, via `enablement: true`.
-O repositório precisa ser público: no plano gratuito, Pages não serve
-repositório privado.
+
+Antes da primeira publicação, é preciso ligar o Pages uma única vez em
+**Settings → Pages → Build and deployment → Source: GitHub Actions**. Isso não
+dá para automatizar: criar o site do Pages exige permissão de administrador,
+que o token do workflow não tem. O repositório também precisa ser público, já
+que no plano gratuito o Pages não serve repositório privado.
 
 ## Avisos sobre os dados
 
